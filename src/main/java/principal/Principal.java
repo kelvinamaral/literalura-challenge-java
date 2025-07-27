@@ -6,6 +6,8 @@ public class Principal {
 
     private Scanner sc = new Scanner(System.in);
 
+    private final String URL_BASE = "https://gutendex.com/books/";
+
     public void exibeMenu(){
 
         var menu = """
@@ -24,7 +26,17 @@ public class Principal {
                 """;
 
         System.out.println(menu);
-        var opcao = sc.nextLine();
+
+        String endereco;
+
+        if (sc.hasNextInt()) {
+            int opcao = sc.nextInt();
+            // colocar lógica baseada na opção
+            System.out.println("Você escolheu a opção: " + opcao);
+        } else {
+            System.out.println("Erro! Digite um número inteiro.");
+            sc.next();
+        }
 
     }
 }
