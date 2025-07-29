@@ -1,10 +1,9 @@
 package model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "livros")
 public class Livro {
 
     @Id
@@ -14,17 +13,13 @@ public class Livro {
     @Column(unique = true)
     private String titulo;
 
-    private String anoPublicacao;
     private String idioma;
-    private String genero;
 
-    private Integer anoNascimentoAutor;
+    private int numeroDownloads;
 
-    private Integer anoFalecimentoAutor;
-
-    private Double numeroDownloads;
-
-
+    @ManyToMany
+    @JoinColumn(name = "autor_id")
+    private Autor autor;
 
     public Long getId() {
         return id;
@@ -42,14 +37,6 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public String getAnoPublicacao() {
-        return anoPublicacao;
-    }
-
-    public void setAnoPublicacao(String anoPublicacao) {
-        this.anoPublicacao = anoPublicacao;
-    }
-
     public String getIdioma() {
         return idioma;
     }
@@ -58,36 +45,20 @@ public class Livro {
         this.idioma = idioma;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public Integer getAnoNascimentoAutor() {
-        return anoNascimentoAutor;
-    }
-
-    public void setAnoNascimentoAutor(Integer anoNascimentoAutor) {
-        this.anoNascimentoAutor = anoNascimentoAutor;
-    }
-
-    public Integer getAnoFalecimentoAutor() {
-        return anoFalecimentoAutor;
-    }
-
-    public void setAnoFalecimentoAutor(Integer anoFalecimentoAutor) {
-        this.anoFalecimentoAutor = anoFalecimentoAutor;
-    }
-
-    public Double getNumeroDownloads() {
+    public int getNumeroDownloads() {
         return numeroDownloads;
     }
 
-    public void setNumeroDownloads(Double numeroDownloads) {
+    public void setNumeroDownloads(int numeroDownloads) {
         this.numeroDownloads = numeroDownloads;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
     }
 
     @Override
@@ -95,13 +66,9 @@ public class Livro {
         return "Livro{" +
                 "id=" + id +
                 ", titulo='" + titulo + '\'' +
-                ", anoPublicacao='" + anoPublicacao + '\'' +
                 ", idioma='" + idioma + '\'' +
-                ", genero='" + genero + '\'' +
-                ", anoNascimentoAutor=" + anoNascimentoAutor +
-                ", anoFalecimentoAutor=" + anoFalecimentoAutor +
                 ", numeroDownloads=" + numeroDownloads +
+                ", autor=" + autor +
                 '}';
-
     }
 }
