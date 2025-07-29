@@ -6,9 +6,7 @@ public class Principal {
 
     private Scanner sc = new Scanner(System.in);
 
-    private final String URL_BASE = "https://gutendex.com/books/";
-
-    public void exibeMenu(){
+    public void exibeMenu() {
 
         var menu = """
                 
@@ -29,14 +27,32 @@ public class Principal {
 
         String endereco;
 
-        if (sc.hasNextInt()) {
-            int opcao = sc.nextInt();
-            // colocar lógica baseada na opção
-            System.out.println("Você escolheu a opção: " + opcao);
-        } else {
-            System.out.println("Erro! Digite um número inteiro.");
-            sc.next();
+        int opcao = -1;
+        while (opcao != 0) {
+            System.out.println(menu);
+            if (sc.hasNextInt()) {
+                opcao = sc.nextInt();
+                if (opcao < 0 || opcao > 7) {
+                    System.out.println("Erro! Opção inválida. Tente novamente.");
+                    continue;
+                }
+                switch (opcao) {
+                    case 1:
+                        System.out.println("Você escolheu a opção: 1");
+                        break;
+                    case 2:
+                        System.out.println("Você escolheu a opção: 2");
+                        break;
+                    case 0:
+                        System.out.println("Saindo do sistema...");
+                        break;
+                    default:
+                        System.out.println("Opção ainda não implementada, tente novamente!");
+                }
+            } else {
+                System.out.println("Erro! Digite um número inteiro.");
+                sc.next();
+            }
         }
-
     }
 }

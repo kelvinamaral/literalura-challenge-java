@@ -10,7 +10,7 @@ public class ConsumoAPI {
     public String obterDados(String endereco) {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(endereco))
+                .uri(URI.create("https://gutendex.com/books/"))
                 .build();
         HttpResponse<String> response = null;
         try {
