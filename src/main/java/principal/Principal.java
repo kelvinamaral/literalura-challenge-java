@@ -1,7 +1,10 @@
 package principal;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Scanner;
 
+@Component
 public class Principal {
 
     private Scanner sc = new Scanner(System.in);
