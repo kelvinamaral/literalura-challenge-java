@@ -15,7 +15,7 @@ public class Autor {
     private Long id;
 
     @Column(nullable = false)
-    private String autor;
+    private String nome;
 
     @Column(name = "ano_nascimento")
     private Year anoNascimento;
@@ -35,12 +35,12 @@ public class Autor {
         this.id = id;
     }
 
-    public String getAutor() {
-        return autor;
+    public String getNome() {
+        return nome;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Year getAnoNascimento() {
@@ -75,14 +75,14 @@ public class Autor {
     }
 
     public Autor(AutorDTO autorDTO) {
-        this.autor = autorDTO.autor();
+        this.nome = autorDTO.autor();
         this.anoNascimento = autorDTO.anoNascimento() != null ? Year.of(autorDTO.anoNascimento()) : null;
         this.anoFalecimento = autorDTO.anoFalecimento() != null ? Year.of(autorDTO.anoFalecimento()) : null;
     }
 
 
     public Autor(String autor, Year anoNascimento, Year anoFalecimento) {
-        this.autor = autor;
+        this.nome = autor;
         this.anoNascimento = anoNascimento;
         this.anoFalecimento = anoFalecimento;
     }
@@ -92,6 +92,6 @@ public class Autor {
         String anoNascimentoStr = anoNascimento != null ? anoNascimento.toString() : "Desconhecido";
         String anoFalecimentoStr = anoFalecimento != null ? anoFalecimento.toString() : "Desconhecido";
 
-        return "Autor: " + autor + " (nascido em " + anoNascimentoStr + ", falecido em " + anoFalecimentoStr + ")";
+        return "Autor: " + nome + " (nascido em " + anoNascimentoStr + ", falecido em " + anoFalecimentoStr + ")";
     }
 }
