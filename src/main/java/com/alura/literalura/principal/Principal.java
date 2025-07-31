@@ -22,48 +22,26 @@ import java.util.stream.Collectors;
 @Component
 public class Principal {
 
-    /**
-     * Serviço para gerenciar livros.
-     * Injetado automaticamente pelo Spring.
-     */
     @Autowired
     private LivroService livroService;
 
-    /**
-     * Serviço para gerenciar autores.
-     * Injetado automaticamente pelo Spring.
-     */
     @Autowired
     private AutorService autorService;
 
-    /**
-     * Serviço para consumir dados de uma API externa.
-     * Injetado automaticamente pelo Spring.
-     */
     @Autowired
     private ConsumoAPI consumoAPI;
 
-    /**
-     * Serviço para converter dados JSON para objetos DTO.
-     * Injetado automaticamente pelo Spring.
-     */
     @Autowired
     private ConvertDados converteDados;
 
-    /**
-     * URL base da API externa de livros.
-     */
     private static final String BASE_URL = "https://gutendex.com/books/";
 
-    /**
-     * Exibe o menu principal e gerencia as opções selecionadas pelo usuário.
-     */
     public void exibirMenu() {
         Scanner scanner = new Scanner(System.in);
-        int opcao;
+        int opcao = -1;
 
         do {
-            System.out.println("--- LITERALURA ---");
+            System.out.println("\n--- LITERALURA ---");
             System.out.println("1 - Buscar livro por título");
             System.out.println("2 - Listar livros registrados");
             System.out.println("3 - Listar autores registrados");
@@ -71,8 +49,14 @@ public class Principal {
             System.out.println("5 - Listar livros por idioma");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine(); // Consumir a quebra de linha
+
+            String entrada = scanner.nextLine();
+            try {
+                opcao = Integer.parseInt(entrada);
+            } catch (NumberFormatException e) {
+                System.out.println("❌ Entrada inválida. Digite um número entre 0 e 5.");
+                continue;
+            }
 
             switch (opcao) {
                 case 1:
@@ -102,7 +86,6 @@ public class Principal {
                                         livro.setIdioma(livroDTO.getIdiomas().get(0));
                                         livro.setNumeroDownloads(livroDTO.getNumeroDownloads());
 
-                                        // Buscar ou criar o Autor
                                         AutorDTO primeiroAutorDTO = livroDTO.getAutores().get(0);
                                         Autor autor = autorService.obterAutorPorNome(primeiroAutorDTO.getNome())
                                                 .orElseGet(() -> {
@@ -113,10 +96,7 @@ public class Principal {
                                                     return autorService.criarAutor(novoAutor);
                                                 });
 
-                                        // Associar o Autor ao Livro
                                         livro.setAutor(autor);
-
-                                        // Salvar o livro no banco de dados
                                         livroService.criarLivro(livro);
                                         System.out.println("Livro registrado: " + livro.getTitulo());
                                         exibirDetalhesLivro(livroDTO);
@@ -159,8 +139,14 @@ public class Principal {
 
                 case 4:
                     System.out.print("Digite o ano vivo de autor(es) que deseja buscar: ");
-                    int ano = scanner.nextInt();
-                    scanner.nextLine(); // Consumir a quebra de linha
+                    String entradaAno = scanner.nextLine();
+                    int ano;
+                    try {
+                        ano = Integer.parseInt(entradaAno);
+                    } catch (NumberFormatException e) {
+                        System.out.println("❌ Ano inválido. Tente novamente.");
+                        break;
+                    }
                     List<Autor> autoresVivos = autorService.listarAutoresVivosPorAno(ano);
                     if (autoresVivos.isEmpty()) {
                         System.out.println("Não foram encontrados autores vivos no ano " + ano);
@@ -182,15 +168,22 @@ public class Principal {
                     System.out.println("es");
                     System.out.println("fr");
                     String idioma = scanner.nextLine();
+
                     if ("pt".equalsIgnoreCase(idioma) || "en".equalsIgnoreCase(idioma) ||
                             "es".equalsIgnoreCase(idioma) || "fr".equalsIgnoreCase(idioma)) {
-                        livroService.listarLivrosPorIdioma(idioma).forEach(livro -> {
-                            System.out.println("------LIVRO--------");
-                            System.out.println("Título: " + livro.getTitulo());
-                            System.out.println("Autor: " + (livro.getAutor() != null ? livro.getAutor().getNome() : "Desconhecido"));
-                            System.out.println("Idioma: " + livro.getIdioma());
-                            System.out.println("Número de downloads: " + livro.getNumeroDownloads());
-                        });
+
+                        List<Livro> livrosPorIdioma = livroService.listarLivrosPorIdioma(idioma);
+                        if (livrosPorIdioma.isEmpty()) {
+                            System.out.println("Nenhum livro encontrado no idioma '" + idioma + "'.");
+                        } else {
+                            livrosPorIdioma.forEach(livro -> {
+                                System.out.println("------LIVRO--------");
+                                System.out.println("Título: " + livro.getTitulo());
+                                System.out.println("Autor: " + (livro.getAutor() != null ? livro.getAutor().getNome() : "Desconhecido"));
+                                System.out.println("Idioma: " + livro.getIdioma());
+                                System.out.println("Número de downloads: " + livro.getNumeroDownloads());
+                            });
+                        }
                     } else {
                         System.out.println("Idioma não válido. Tente novamente.");
                     }
@@ -201,18 +194,14 @@ public class Principal {
                     break;
 
                 default:
-                    System.out.println("Opção não válida. Tente novamente.");
+                    System.out.println("⚠️ Opção não válida. Tente novamente.");
             }
+
         } while (opcao != 0);
 
         scanner.close();
     }
 
-    /**
-     * Exibe os detalhes de um livro DTO.
-     *
-     * @param livroDTO O objeto LivroDTO cujos detalhes serão exibidos.
-     */
     private void exibirDetalhesLivro(LivroDTO livroDTO) {
         System.out.println("------LIVRO--------");
         System.out.println("Título: " + livroDTO.getTitulo());
