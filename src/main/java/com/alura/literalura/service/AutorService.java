@@ -1,9 +1,9 @@
-package service;
+package com.alura.literalura.service;
 
-import model.Autor;
+import com.alura.literalura.model.Autor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.AutorRepository;
+import com.alura.literalura.repository.AutorRepository;
 
 import java.util.List;
 import java.util.Optional;

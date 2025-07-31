@@ -1,4 +1,4 @@
-package model;
+package com.alura.literalura.model;
 
 import jakarta.persistence.*;
 
@@ -17,7 +17,7 @@ public class Livro {
 
     private int numeroDownloads;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "autor_id")
     private Autor autor;
 

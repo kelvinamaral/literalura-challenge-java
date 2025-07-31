@@ -1,9 +1,9 @@
-package service;
+package com.alura.literalura.service;
 
-import model.Livro;
+import com.alura.literalura.model.Livro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.LivroRepository;
+import com.alura.literalura.repository.LivroRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +44,6 @@ public class LivroService {
     }
 
     public void deletarLivro(Long id) {
-        livroRepository.deleteById(id);;
+        livroRepository.deleteById(id);
     }
-
 }

@@ -1,4 +1,4 @@
-package dto;
+package com.alura.literalura.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,7 +31,7 @@ public class AutorDTO {
         this.anoNascimento = anoNascimento;
     }
 
-    public int getAnoFalescimento() {
+    public int getAnoFalecimento() {
         return anoFalescimento;
     }
 
