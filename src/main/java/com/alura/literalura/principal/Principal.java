@@ -53,7 +53,7 @@ public class Principal {
     /**
      * URL base da API externa de livros.
      */
-    private static final String BASE_URL = "https://gutendx.com/books/";
+    private static final String BASE_URL = "https://gutendex.com/books/";
 
     /**
      * Exibe o menu principal e gerencia as opções selecionadas pelo usuário.
