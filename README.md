@@ -2,23 +2,15 @@
 
 Catálogo de livros em Java com interação via console, consumindo dados de uma API pública, armazenando-os em banco de dados e permitindo consultas e filtros.
 
-## Opções do Programa
-
---- LITERALURA ---
-1. - Buscar livro por título
-2. - Listar livros registrados
-3. - Listar autores registrados
-4. - Listar autores vivos em um ano
-5. - Listar livros por idioma
-0. - Sair
-
 ## Funcionalidades
 
-- Busca livros pelo título via API;
-- Registro automático de livros e autores no banco de dados;
-- Listagem de livros e autores cadastrados;
-- Filtros por ano de vida do autor e idioma do livro;
-- Interface textual simples e intuitiva.
+- 🔍 Buscar livro por título através de API externa
+- 💾 Registrar livros e autores automaticamente no banco de dados
+- 📚 Listar livros cadastrados
+- 🧑‍💼 Listar autores cadastrados
+- 📅 Filtrar autores vivos em um ano específico
+- 🌐 Listar livros por idioma
+- 🖥️ Interface via console simples e amigável
 
 ## Tecnologias
 
