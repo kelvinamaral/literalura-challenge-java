@@ -43,4 +43,3 @@ Catálogo de livros em Java com interação via console, consumindo dados de uma
 1. Configure o banco PostgreSQL e atualize as propriedades no `application.properties`.
 2. Rode a aplicação (`mvn spring-boot:run` ou via IDE).
 3. Interaja via menu no console seguindo as instruções.
-4. 
