@@ -18,6 +18,11 @@
     </a>
 </p>
 
+<p align="center">
+    <img src="./imgs/Badge-Literalura.png" width="250px" alt="Badge de 
+Conquista">
+</p>
+
 Catálogo de livros em Java com interação via console, consumindo dados de uma API pública, armazenando-os em banco de dados e permitindo consultas e filtros.
 
 ## Funcionalidades
